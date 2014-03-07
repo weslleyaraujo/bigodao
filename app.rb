@@ -3,8 +3,12 @@ require 'compass'
 
 class App < Sinatra::Base
 	configure do
-		set :sass, {:style => :compact, :debug_info => false}
-		Compass.add_project_configuration(File.join(Sinatra::Application.root, 'config', 'compass.rb'))
+		Compass.configuration do |config|
+			config.project_path = File.dirname(__FILE__)
+			config.sass_dir = 'public/stylesheets'
+		end
+
+		set :sass, Compass.sass_engine_options
 	end
 
 	get '/stylesheets/:name.css' do
