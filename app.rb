@@ -22,4 +22,4 @@ class App < Sinatra::Base
 end
 
 # rerun only
-# new App.run!
+new App.run!
