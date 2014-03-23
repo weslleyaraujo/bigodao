@@ -1,4 +1,7 @@
+# dev
 .bundle
 .sass-cache
-bower_components
 nohup.out
+
+# public
+public/components

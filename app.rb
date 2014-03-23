@@ -11,8 +11,10 @@ class App < Sinatra::Base
     serve '/javascripts',	from: 'public/javascripts'
     serve '/stylesheets',	from: 'public/stylesheets'
 
-    js :app, [
-      '/javascripts/main.js',
+    js :deps, [
+      'components/jquery/jquery.js',
+      'components/backbone/backbone.js',
+      'components/underscore/underscore.js',
     ]
 
     css :application, [
