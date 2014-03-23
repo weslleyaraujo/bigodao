@@ -1,0 +1,17 @@
+{
+  "name": "bigodao",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery": "1.9.1",
+    "underscore": "1.6.0",
+    "backbone": "1.1.2"
+  },
+  "authors": [
+    "Weslley Araujo <weslleyaraujo20@gmail.com>"
+  ],
+  "description": "i dont even know",
+  "keywords": [
+    "bigodao"
+  ],
+  "license": "MIT"
+}
