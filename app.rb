@@ -30,7 +30,7 @@ class App < Sinatra::Base
       '/stylesheets/layout/*.css',
       '/stylesheets/module/*.css',
       '/stylesheets/no-modular/*.css',
-      '/stylesheets/main*.css',
+      '/stylesheets/main.css',
     ]
 
     js_compression  :jsmin
