@@ -3,7 +3,7 @@ require 'sinatra/assetpack'
 
 class App < Sinatra::Base
   # asset pack config
-  set :root, File.dirname(__FILE__)
+	set :root, File.dirname(__FILE__) # You must set app root
 
   register Sinatra::AssetPack
 
@@ -12,9 +12,17 @@ class App < Sinatra::Base
     serve '/stylesheets',	from: 'public/stylesheets'
 
     js :deps, [
-      'components/jquery/jquery.js',
-      'components/backbone/backbone.js',
-      'components/underscore/underscore.js',
+      '../components/jquery/jquery.js',
+      '../components/underscore/underscore.js',
+      '../components/backbone/backbone.js'
+    ]
+
+    js :app, [
+      '/javascripts/application.js',
+      '/javascripts/models/*.js',
+      '/javascripts/collections/*.js',
+      '/javascripts/views/*.js',
+      '/javascripts/main.js',
     ]
 
     css :application, [

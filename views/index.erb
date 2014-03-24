@@ -10,9 +10,14 @@
     <%= css :application %>
 	</head>
 	<body>
-		<p>Hello world! This is HTML5 Boilerplate.</p>
+			
+		<form action="#" id="search-movie">
+			<input type="text" placeholder="Digite sua busca" name="keywords">
+			<input type="submit" value="Buscar">
+		</form>
 
     <%= js :deps %>
+    <%= js :app %>
 
 	</body>
 </html>
