@@ -1,11 +1,16 @@
-var MovieFinder = (function ($, _, Backbone, Application) {
+(function ($, _, Backbone, Application) {
 	'use-strict';
+
 	var app, _private, elements;
 
 	// Defines App routes
 	_private = {
-		movies: new Application.Collections.Movies(),
-		search: new Application.Views.Search(),
+		collections: {
+			movies: new Application.Collections.Movies(),
+		},
+		views: {
+			search: new Application.Views.Search()
+		},
 		routes: Backbone.Router.extend({
 			routes : {
 				'' : 'search',
@@ -13,16 +18,19 @@ var MovieFinder = (function ($, _, Backbone, Application) {
 			},
 
 			search: function (keywords) {
-				console.log('init routs', keywords);
+				_private.views.movies.getMovies(keywords);
 			}
-
 		})
 	};
 
 	app = {
 		initialize: function () {
 			app.setElemets();
-			app.bind();
+
+			// movies view
+			_private.views.movies = new Application.Views.Movies({
+				collection: _private.collections.movies
+			});
 			
 			// Router init
 			new _private.routes();
@@ -31,12 +39,7 @@ var MovieFinder = (function ($, _, Backbone, Application) {
 
 		setElemets: function () {
 			elements = elements || {};
-		},
-
-		bind: function () {
-
 		}
-
 	};
 
 	return app;

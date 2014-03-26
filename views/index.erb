@@ -16,6 +16,13 @@
 			<input type="submit" value="Buscar">
 		</form>
 
+		<ul id="movie-list"></ul>
+
+		<script type="text/template" id="movie-item">
+			<img src="{{ CoverImage }}"/>
+			<p>{{ MovieTitle }}</p>
+		</script>
+
     <%= js :deps %>
     <%= js :app %>
 

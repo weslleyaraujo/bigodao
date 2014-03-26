@@ -13,7 +13,7 @@ Application.Views.Search = Backbone.View.extend({
 
 	onSubmit: function (event) {
 		event && event.preventDefault();
-		this.$el.find('[name="keywords"]').val();
+		Backbone.history.loadUrl('search/' + this.$el.find('[name="keywords"]').val());
 	}
 
 });
