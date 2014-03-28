@@ -12,8 +12,5 @@ Application.Collections.Movies = Backbone.Collection.extend({
 		if (response.MovieList) {
 			return response.MovieList;
 		}
-
-		// Nothing to show :/
-		this.trigger('error');
 	}
 });

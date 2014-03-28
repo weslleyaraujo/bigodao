@@ -20,3 +20,6 @@ Application.Helpers.template = function (selector) {
 _.templateSettings = {
 	interpolate: /\{\{(.+?)\}\}/g
 };
+
+// Events helper
+Application.Helpers.events = _.extend({}, Backbone.Events);
