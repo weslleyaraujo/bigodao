@@ -1,7 +1,9 @@
 # dev
 .bundle
-.sass-cache
+*.sass-cache
 nohup.out
-.swp
+*.swp
+*.srt
+
 # public
 public/components

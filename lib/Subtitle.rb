@@ -1,11 +1,15 @@
 class Subtitle
 
-    @@subtitleBasepath = '/tmp'
+    @@subtitleBasepath = '/tmp/'
 
-    def getSubtitle (number)
+    def getSubtitle (imdId)
         begin
-            system 'getsub --search-by i '+number+' --force'
-            system 'mv .srtt.* '+number+'.srt'
+            system 'getsub --search-by i '+imdId+' --force'
+
+            if ('' == moveSubtitle(imdId))
+                puts 'UHUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU' 
+            end
+
             return true
         rescue
             return false
@@ -14,9 +18,14 @@ class Subtitle
 
     private
 
-    def moveSubtitle (subtitle)
-        File.rename subtitle, @@subtitleBasepath+subtitle
-        return @@subtitleBasepath+subtitle
+    def moveSubtitle (imdId)
+        begin
+            finalName = @@subtitleBasepath+imdId+'.srt'
+            system 'mv .srtt.* ' + finalName
+            return finalName
+        rescue
+            return ''
+        end
     end
 
 end
