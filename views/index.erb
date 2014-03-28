@@ -1,40 +1,23 @@
-<!DOCTYPE html>
-<html class="no-js">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title></title>
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+<form action="#" id="search-movie">
+	<input type="text" placeholder="Digite sua busca" name="keywords">
+	<input type="submit" value="Buscar">
+</form>
 
-    <%= css :application %>
-	</head>
-	<body>
-			
-		<form action="#" id="search-movie">
-			<input type="text" placeholder="Digite sua busca" name="keywords">
-			<input type="submit" value="Buscar">
-		</form>
+<ul id="movie-list"></ul>
 
-		<ul id="movie-list"></ul>
+<script type="text/template" id="movie-item">
+	<a href="/movie/{{ MovieID }}"> 
+		<img src="{{ CoverImage }}"/>
+	</a>
+	<p>{{ MovieTitle }}</p>
+</script>
 
-		<script type="text/template" id="movie-item">
-			<img src="{{ CoverImage }}"/>
-			<p>{{ MovieTitle }}</p>
-		</script>
+<script type="text/template" id="not-found">
+	Nothing found
+</script>
 
-		<script type="text/template" id="not-found">
-			Nothing found
-		</script>
-
-		<script type="text/template" id="loading">
-			<li>
-				Loading..
-			</li>
-		</script>
-
-    <%= js :deps %>
-    <%= js :app %>
-
-	</body>
-</html>
+<script type="text/template" id="loading">
+	<li>
+		Loading..
+	</li>
+</script>
