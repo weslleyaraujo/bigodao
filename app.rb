@@ -4,8 +4,12 @@ require 'open-uri'
 require 'json'
 require 'uri'
 require 'io/console'
+require "sinatra/json"
 
 class App < Sinatra::Base
+	# sinatra json
+	helpers Sinatra::JSON
+
   # asset pack config
 	set :root, File.dirname(__FILE__) # You must set app root
 
@@ -54,9 +58,7 @@ class App < Sinatra::Base
 	end
 
 	def play(torrent_url)
-		puts 'streaming for '  + URI.escape(torrent_url.to_s)
-		pipe = IO.popen('peerflix ' + URI.escape(torrent_url.to_s) + ' -q >/dev/null 2>&1')
-		puts 'after streaming ' + (pipe.pid + 1).to_s
+		IO.popen('peerflix ' + URI.escape(torrent_url.to_s) + ' -q >/dev/null 2>&1')
 	end
 
   get '/' do
@@ -71,10 +73,10 @@ class App < Sinatra::Base
   end
 
 	get '/play' do
-		play params[:torrent_url]
-		'streaming movie'
+		process = play params[:torrent_url]
+		json :process_id => (process.pid + 1)
 	end
 end
 
-# rerun only
+# rerun only !!
 new App.run!
