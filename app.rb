@@ -54,7 +54,8 @@ class App < Sinatra::Base
 
 	def play(torrent_url)
 		puts 'streaming for '  + URI.escape(torrent_url.to_s)
-		system 'peerflix ' + URI.escape(torrent_url.to_s)
+		system 'nohup peerflix ' + URI.escape(torrent_url.to_s) + ' -q >/dev/null 2>&1'
+		puts 'after streaming'
 	end
 
   get '/' do
