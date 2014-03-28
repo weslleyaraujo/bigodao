@@ -10,7 +10,7 @@ describe Subtitle do
     it 'get subtitle by IMD id' do
         @subtitle.getSubtitle('tt1013753').should eql(true)
         File.exist?('tt1013753.srt').should eql(true)
-        system 'rm tt1013753.srt'
+        #system 'rm tt1013753.srt'
     end
 
 end

@@ -68,7 +68,7 @@ DEPENDENCIES
   json
   osdb
   rerun
-  rspec
+  rspec (~> 2.14.1)
   sinatra
   sinatra-assetpack
   unicorn

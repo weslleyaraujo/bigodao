@@ -2,6 +2,6 @@
 .bundle
 .sass-cache
 nohup.out
-
+.swp
 # public
 public/components
