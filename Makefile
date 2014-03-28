@@ -1,5 +1,6 @@
 install:
 	bundle
+	bower install
 
 dev:
 	# is there a nohup?

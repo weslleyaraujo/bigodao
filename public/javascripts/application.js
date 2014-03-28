@@ -10,6 +10,11 @@ Application.Models = {};
 Application.Views = {};
 Application.Collections = {};
 Application.Helpers = {};
+Application.Config = {
+	URL: {
+		movies: 'http://yts.re/api/list.json'
+	}
+};
 
 // Template helper
 Application.Helpers.template = function (selector) {

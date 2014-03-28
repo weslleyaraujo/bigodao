@@ -1,5 +1,8 @@
 require 'sinatra'
 require 'sinatra/assetpack'
+require 'open-uri'
+require 'JSON'
+require 'uri'
 
 class App < Sinatra::Base
   # asset pack config
@@ -18,11 +21,19 @@ class App < Sinatra::Base
     ]
 
     js :app, [
-      '/javascripts/application.js',
-      '/javascripts/models/*.js',
-      '/javascripts/collections/*.js',
-      '/javascripts/views/*.js',
-      '/javascripts/main.js',
+      '/javascripts/application.js'
+    ]
+
+    js :index, [
+      '/javascripts/models/movie.js',
+
+      '/javascripts/collections/movies.js',
+
+      '/javascripts/views/movie.js',
+      '/javascripts/views/movies.js',
+      '/javascripts/views/notfound.js',
+      '/javascripts/views/search.js',
+      '/javascripts/index.js'
     ]
 
     css :application, [
@@ -30,16 +41,37 @@ class App < Sinatra::Base
       '/stylesheets/layout/*.css',
       '/stylesheets/module/*.css',
       '/stylesheets/no-modular/*.css',
-      '/stylesheets/main.css',
+      '/stylesheets/main.css'
     ]
 
     js_compression  :jsmin
     css_compression :simple
   }
 
+	def get(movie_id)
+		JSON.parse(open('http://yts.re/api/movie.json?id=' + movie_id.to_s).read)
+	end
+
+	def play(torrent_url)
+		puts 'streaming for '  + URI.escape(torrent_url.to_s)
+		system 'peerflix ' + URI.escape(torrent_url.to_s)
+	end
+
   get '/' do
+		@page_js = 'index'
     erb :index
   end
+
+  get '/movie/:movie_id' do
+		@page_js = 'movie'
+		@movie = get(params[:movie_id])
+    erb :movie
+  end
+
+	get '/play' do
+		play params[:torrent_url]
+		'streaming movie'
+	end
 end
 
 # rerun only
