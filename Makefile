@@ -1,6 +1,7 @@
 install:
 	bundle
 	bower install
+	sudo npm install -g peerflix
 
 dev:
 	# is there a nohup?

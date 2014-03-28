@@ -1,8 +1,9 @@
 require 'sinatra'
 require 'sinatra/assetpack'
 require 'open-uri'
-require 'JSON'
+require 'json'
 require 'uri'
+require 'io/console'
 
 class App < Sinatra::Base
   # asset pack config
@@ -54,8 +55,8 @@ class App < Sinatra::Base
 
 	def play(torrent_url)
 		puts 'streaming for '  + URI.escape(torrent_url.to_s)
-		system 'nohup peerflix ' + URI.escape(torrent_url.to_s) + ' -q >/dev/null 2>&1'
-		puts 'after streaming'
+		pipe = IO.popen('peerflix ' + URI.escape(torrent_url.to_s) + ' -q >/dev/null 2>&1')
+		puts 'after streaming ' + (pipe.pid + 1).to_s
 	end
 
   get '/' do

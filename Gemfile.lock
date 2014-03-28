@@ -15,6 +15,7 @@ GEM
     ffi (1.9.3)
     fssm (0.2.10)
     jsmin (1.0.1)
+    json (1.7.7)
     kgio (2.9.2)
     listen (2.7.1)
       celluloid (>= 0.15.2)
@@ -64,6 +65,7 @@ PLATFORMS
 
 DEPENDENCIES
   compass
+  json
   osdb
   rerun
   rspec
