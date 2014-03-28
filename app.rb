@@ -41,6 +41,12 @@ class App < Sinatra::Base
       '/javascripts/index.js'
     ]
 
+    js :movie, [
+      '/javascripts/models/process.js',
+      '/javascripts/collections/streaming.js',
+      '/javascripts/movie.js'
+    ]
+
     css :application, [
       '/stylesheets/base/*.css',
       '/stylesheets/layout/*.css',
@@ -55,6 +61,10 @@ class App < Sinatra::Base
 
 	def get(movie_id)
 		JSON.parse(open('http://yts.re/api/movie.json?id=' + movie_id.to_s).read)
+	end
+
+	def kill(process_id)
+		IO.popen('kill -9 ' + process_id.to_s)
 	end
 
 	def play(torrent_url)
@@ -75,6 +85,11 @@ class App < Sinatra::Base
 	get '/play' do
 		process = play params[:torrent_url]
 		json :process_id => (process.pid + 1)
+	end
+
+	get '/kill' do
+		kill params[:process_id]
+		json :status => true
 	end
 end
 
