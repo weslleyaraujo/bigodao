@@ -4,8 +4,12 @@ require 'open-uri'
 require 'json'
 require 'uri'
 require 'io/console'
+require "sinatra/json"
 
 class App < Sinatra::Base
+	# sinatra json
+	helpers Sinatra::JSON
+
   # asset pack config
 	set :root, File.dirname(__FILE__) # You must set app root
 
@@ -37,6 +41,12 @@ class App < Sinatra::Base
       '/javascripts/index.js'
     ]
 
+    js :movie, [
+      '/javascripts/models/process.js',
+      '/javascripts/collections/streaming.js',
+      '/javascripts/movie.js'
+    ]
+
     css :application, [
       '/stylesheets/base/*.css',
       '/stylesheets/layout/*.css',
@@ -53,10 +63,12 @@ class App < Sinatra::Base
 		JSON.parse(open('http://yts.re/api/movie.json?id=' + movie_id.to_s).read)
 	end
 
+	def kill(process_id)
+		IO.popen('kill -9 ' + process_id.to_s)
+	end
+
 	def play(torrent_url)
-		puts 'streaming for '  + URI.escape(torrent_url.to_s)
-		pipe = IO.popen('peerflix ' + URI.escape(torrent_url.to_s) + ' -q >/dev/null 2>&1')
-		puts 'after streaming ' + (pipe.pid + 1).to_s
+		IO.popen('peerflix ' + URI.escape(torrent_url.to_s) + ' -q >/dev/null 2>&1')
 	end
 
   get '/' do
@@ -71,10 +83,15 @@ class App < Sinatra::Base
   end
 
 	get '/play' do
-		play params[:torrent_url]
-		'streaming movie'
+		process = play params[:torrent_url]
+		json :process_id => (process.pid + 1)
+	end
+
+	get '/kill' do
+		kill params[:process_id]
+		json :status => true
 	end
 end
 
-# rerun only
+# rerun only !!
 new App.run!

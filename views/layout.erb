@@ -7,6 +7,11 @@
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
     <%= css :application %>
+		<% if !@movie.nil? %>
+			<script>
+				var TORRENT_URL = '<%= @movie['TorrentUrl'] %>';
+			</script>
+		<% end %>
 	</head>
 	<body>
 		<%= yield %>
