@@ -27,16 +27,17 @@
 
 				// do we have this movie already?
 				if (_private.collections.movies.length) {
-					_private.views.player = _private.collections.movies.where({
+					_private.models.movie = _private.collections.movies.findWhere({
 						'MovieID': movie_id
 					});
+
 				}
 				else {
 					_private.models.movie = new Application.Models.Movie({
 						MovieID: movie_id
 					});
 				}
-
+				debugger;
 				// Start player main view
 				_private.views.player = new Application.Views.Player({
 					model: _private.models.movie

@@ -17,7 +17,7 @@ Application.Views.Player = Backbone.View.extend({
 		if (_.isEmpty(this.model.get('TorrentUrl'))) {
 			this.model.fetch({
 				data: {
-					MovieID: this.model.get('MovieID')
+					id: this.model.get('MovieID')
 				}
 			});
 		}
