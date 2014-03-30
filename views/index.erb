@@ -3,8 +3,9 @@
 	<input type="submit" value="Buscar">
 </form>
 
-<ul id="movie-list"></ul>
 <div id="main-player"></div>
+
+<ul id="movie-list"></ul>
 
 <script type="text/template" id="movie-item">
 	<a href="#/movie/{{ MovieID }}"> 
@@ -24,5 +25,8 @@
 </script>
 
 <script type="text/template" id="player">
+	<video src="{{ VideoSource }}" controls autoplay autobuffer>
+	
+	</video>
 	this is the main movie view {{ TorrentUrl }}
 </script>

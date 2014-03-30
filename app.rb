@@ -71,7 +71,7 @@ class App < Sinatra::Base
 	end
 
 	get '/kill' do
-		kill params[:process_id]
+		# here we gonna killl them allllll
 		json :status => true
 	end
 end

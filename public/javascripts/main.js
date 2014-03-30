@@ -19,10 +19,12 @@
 			},
 
 			search: function (keywords) {
+				app.clearViews();
 				_private.views.movies.getMovies(keywords);
 			},
 
 			movie: function (movie_id) {
+				app.clearViews();
 				_private.models = _private.models || {};
 
 				// do we have this movie already?
@@ -37,7 +39,7 @@
 						MovieID: movie_id
 					});
 				}
-				debugger;
+
 				// Start player main view
 				_private.views.player = new Application.Views.Player({
 					model: _private.models.movie
@@ -56,6 +58,15 @@
 			// Router init
 			new _private.routes();
 			Backbone.history.start();
+		},
+
+		clearViews: function () {
+			try {
+				_private.views.movies.$el.html('');
+				_private.views.player.$el.html('');
+			} catch (e) {
+				return false;
+			}
 		}
 	};
 

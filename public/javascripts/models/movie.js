@@ -32,6 +32,7 @@ Application.Models.Movie = Backbone.Model.extend({
 		TorrentPeers: '',
 		TorrentUrl: '',
 		TorrentHash: '',
-		TorrentMagnetUrl: ''
+		TorrentMagnetUrl: '',
+		VideoSource: 'http://localhost:8888'
 	}
 });
