@@ -4,6 +4,7 @@
 nohup.out
 *.swp
 *.srt
+node_modules
 
 # public
 public/components

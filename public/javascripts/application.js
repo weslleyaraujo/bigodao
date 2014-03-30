@@ -13,7 +13,7 @@ Application.Helpers = {};
 Application.Config = {
 	URL: {
 		movies: 'http://yts.re/api/list.json',
-		streaming: '/play'
+		movie: 'http://yts.re/api/movie.json'
 	}
 };
 

@@ -4,9 +4,10 @@
 </form>
 
 <ul id="movie-list"></ul>
+<div id="main-player"></div>
 
 <script type="text/template" id="movie-item">
-	<a href="/movie/{{ MovieID }}"> 
+	<a href="#/movie/{{ MovieID }}"> 
 		<img src="{{ CoverImage }}"/>
 	</a>
 	<p>{{ MovieTitle }}</p>
@@ -20,4 +21,8 @@
 	<li>
 		Loading..
 	</li>
+</script>
+
+<script type="text/template" id="player">
+	this is the main movie view
 </script>

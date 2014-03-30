@@ -1,10 +1,10 @@
 require 'sinatra'
 require 'sinatra/assetpack'
 require 'open-uri'
-require 'json'
 require 'uri'
 require 'io/console'
-require "sinatra/json"
+require 'sinatra/json'
+require 'json'
 
 class App < Sinatra::Base
 	# sinatra json
@@ -26,10 +26,8 @@ class App < Sinatra::Base
     ]
 
     js :app, [
-      '/javascripts/application.js'
-    ]
+      '/javascripts/application.js',
 
-    js :index, [
       '/javascripts/models/movie.js',
 
       '/javascripts/collections/movies.js',
@@ -38,13 +36,9 @@ class App < Sinatra::Base
       '/javascripts/views/movies.js',
       '/javascripts/views/notfound.js',
       '/javascripts/views/search.js',
-      '/javascripts/index.js'
-    ]
+      '/javascripts/views/player.js',
 
-    js :movie, [
-      '/javascripts/models/process.js',
-      '/javascripts/collections/streaming.js',
-      '/javascripts/movie.js'
+      '/javascripts/main.js'
     ]
 
     css :application, [
@@ -59,27 +53,16 @@ class App < Sinatra::Base
     css_compression :simple
   }
 
-	def get(movie_id)
-		JSON.parse(open('http://yts.re/api/movie.json?id=' + movie_id.to_s).read)
-	end
-
 	def kill(process_id)
 		IO.popen('kill -9 ' + process_id.to_s)
 	end
 
 	def play(torrent_url)
-		IO.popen('peerflix ' + URI.escape(torrent_url.to_s) + ' -q >/dev/null 2>&1')
+		IO.popen('peerflix ' + URI.escape(torrent_url.to_s) + ' -q')
 	end
 
   get '/' do
-		@page_js = 'index'
     erb :index
-  end
-
-  get '/movie/:movie_id' do
-		@page_js = 'movie'
-		@movie = get(params[:movie_id])
-    erb :movie
   end
 
 	get '/play' do

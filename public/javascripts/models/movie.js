@@ -6,6 +6,8 @@
 
 Application.Models = Application.Models || {};
 Application.Models.Movie = Backbone.Model.extend({
+	urlRoot: Application.Config.URL.movie,
+
 	defaults : {
 		MovieID: '',
 		State: '',
