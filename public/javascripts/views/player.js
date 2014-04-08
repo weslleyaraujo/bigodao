@@ -32,6 +32,35 @@ Application.Views.Player = Backbone.View.extend({
 	},
 
 	render: function () {
+		this.setStreaming();
 		this.$el.html(this.template(this.model.toJSON()));
+	},
+
+
+	bindStream: function () {
+		this.streaming.on('sync', function () {
+			this.status = new Application.Models.Status();
+			this.status.on('movie:done', function () {
+				this.play();
+			}.bind(this));
+		}, this);
+	},
+
+	setStreaming: function () {
+		if (!this.streaming) {
+			this.streaming = new Application.Models.Streaming({
+				torrent_url: this.model.get('TorrentUrl')
+			});
+			this.bindStream();
+			this.streaming.fetch();
+		}
+	},
+
+	play: function () {
+		this.player = document.getElementById('video-player');
+		if (this.player.paused) {
+			this.player.counter = Application.Helpers.parser(this.player.src).counter || 1;
+			this.player.src = this.player.src + '?counter=' + this.player.counter;
+		}
 	}
 });

@@ -13,7 +13,9 @@ Application.Helpers = {};
 Application.Config = {
 	URL: {
 		movies: 'http://yts.re/api/list.json',
-		movie: 'http://yts.re/api/movie.json'
+		movie: 'http://yts.re/api/movie.json',
+		streaming: 'play',
+		status: 'status'
 	}
 };
 
@@ -29,3 +31,8 @@ _.templateSettings = {
 
 // Events helper
 Application.Helpers.events = _.extend({}, Backbone.Events);
+
+// Url parser
+Application.Helpers.parser = function (url) {
+	return _.object(_.compact(_.map(url.slice(1).split('?'), function(item) {  if (item) return item.split('='); })));
+};

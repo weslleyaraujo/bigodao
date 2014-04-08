@@ -5,6 +5,8 @@ require 'uri'
 require 'io/console'
 require 'sinatra/json'
 require 'json'
+require 'timeout'
+require 'net/http'
 
 class App < Sinatra::Base
 	# sinatra json
@@ -29,6 +31,8 @@ class App < Sinatra::Base
       '/javascripts/application.js',
 
       '/javascripts/models/movie.js',
+      '/javascripts/models/streaming.js',
+      '/javascripts/models/status.js',
 
       '/javascripts/collections/movies.js',
 
@@ -53,6 +57,7 @@ class App < Sinatra::Base
     css_compression :simple
   }
 
+	# process
 	def kill(process_id)
 		IO.popen('kill -9 ' + process_id.to_s)
 	end
@@ -61,18 +66,29 @@ class App < Sinatra::Base
 		IO.popen('peerflix ' + URI.escape(torrent_url.to_s) + ' -q')
 	end
 
+	# routes
   get '/' do
     erb :index
   end
 
-	get '/play' do
+	get '/play/' do
 		process = play params[:torrent_url]
-		json :process_id => (process.pid + 1)
+		json :process_id => (process.pid)
 	end
 
 	get '/kill' do
 		# here we gonna killl them allllll
 		json :status => true
+	end
+
+	get '/status' do
+		begin
+			bigodao = timeout(5) do
+				bigode = Net::HTTP.get_response(URI.parse('http://localhost:8888'))
+			end
+		rescue Timeout::Error
+			json :status => true
+		end
 	end
 end
 
