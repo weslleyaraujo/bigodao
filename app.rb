@@ -90,6 +90,10 @@ class App < Sinatra::Base
 			json :status => true
 		end
 	end
+
+    get '/session' do
+        'alan'
+    end
 end
 
 # rerun only !!
