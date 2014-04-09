@@ -4,20 +4,18 @@ class Subtitle
 
     def getSubtitle (imdId)
         begin
-           # system 'getsub --search-by i '+imdId+' --force'
+            system 'getsub --search-by i '+imdId+' --force'
 
-            #subtitleName = moveSubtitle(imdId)
+            subtitleName = moveSubtitle(imdId)
 
-                parseSubtitle('/tmp/'+imdId+'.srt')
-                filePrepend('/tmp/'+imdId+'.srt', "ueba\n\n")
-          #  if ('' != subtitleName)
-          #      parseSubtitle('/tmp/'+imdId+'.srt')
-                #filePrepend(subtitleName, "ueba\n\n")
-          #  end
+            if ('' != subtitleName)
+                parseSubtitle(subtitleName)
+                filePrepend(subtitleName, "WEBVTT\n\n")
+            end
 
-            return true
+            return subtitleName
         rescue
-            return false
+            return ''
         end
     end
 
@@ -25,7 +23,7 @@ class Subtitle
 
     def moveSubtitle (imdId)
         begin
-            finalName = imdId+'.srt'
+            finalName = @@subtitleBasepath+imdId+'.srt'
             system 'mv .srtt.* ' + finalName
             return finalName
         rescue
